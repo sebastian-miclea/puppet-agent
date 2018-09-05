@@ -15,12 +15,16 @@ component "facter" do |pkg, settings, platform|
   pkg.replaces 'pe-facter'
 
   if settings[:system_openssl]
-    pkg.build_requires 'openssl-devel'
+    if platform.name =~ /ubuntu-18\.10/
+      pkg.build_requires 'libssl-dev'
+    else
+      pkg.build_requires "openssl-devel"
+    end
   end
 
   pkg.build_requires 'puppet-runtime' # Provides augeas, boost, curl, openssl, ruby, yaml-cpp
   pkg.build_requires 'leatherman'
-  pkg.build_requires 'runtime' unless platform.name =~ /sles-15/
+  pkg.build_requires 'runtime' unless settings[:without_pl_build_tools]
   pkg.build_requires 'cpp-hocon'
   pkg.build_requires 'libwhereami'
 
@@ -126,7 +130,7 @@ component "facter" do |pkg, settings, platform|
 
     cmake = "C:/ProgramData/chocolatey/bin/cmake.exe -G \"MinGW Makefiles\""
     toolchain = "-DCMAKE_TOOLCHAIN_FILE=#{settings[:tools_root]}/pl-build-toolchain.cmake"
-  elsif platform.name =~ /sles-15/
+  elsif settings[:without_pl_build_tools]
     # These platforms use the default OS toolchain, rather than pl-build-tools
     cmake = "cmake"
     toolchain = ""
@@ -200,7 +204,7 @@ component "facter" do |pkg, settings, platform|
   end
 
   # Disable tests for platforms that use the default OS toolchain
-  unless platform.name =~ /sles-15/
+  unless settings[:without_pl_build_tools]
     pkg.check do
       tests
     end

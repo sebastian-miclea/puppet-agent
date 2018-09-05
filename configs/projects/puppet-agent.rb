@@ -83,6 +83,11 @@ project "puppet-agent" do |proj|
   # Set package version, for use by Facter in creating the AIO_AGENT_VERSION fact.
   proj.setting(:package_version, proj.get_version)
 
+  # Don't use pl-build-tools
+  if platform.name =~ /sles-15|ubuntu-18\.10/
+    proj.setting(:without_pl_build_tools, true)
+  end
+
   # First our stuff
   proj.component "puppet"
   proj.component "facter"
@@ -106,7 +111,7 @@ project "puppet-agent" do |proj|
     proj.component "shellpath"
   end
 
-  proj.component "runtime" unless platform.name =~ /sles-15/
+  proj.component "runtime" unless settings[:without_pl_build_tools]
 
   # Windows doesn't need these wrappers, only unix platforms
   unless platform.is_windows?
