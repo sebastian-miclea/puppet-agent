@@ -6,7 +6,7 @@ component "puppet" do |pkg, settings, platform|
   pkg.build_requires "hiera"
   # Used to compile binary translation files
   # i18n is not supported on Solaris
-  if platform.is_macos?
+  if platform.is_macos? || platform.name =~ /ubuntu-18\.10/
     pkg.build_requires "gettext"
   elsif platform.is_windows?
     pkg.build_requires "pl-gettext-#{platform.architecture}"

@@ -52,6 +52,10 @@ project "puppet-agent" do |proj|
     proj.setting(:service_dir, File.join(proj.install_root, "service"))
   end
 
+  if platform.name =~ /ubuntu-18\.10/
+    proj.setting(:libdir, '/lib/x86_64-linux-gnu')
+  end
+
   proj.setting(:puppet_configdir, File.join(proj.sysconfdir, 'puppet'))
   proj.setting(:puppet_codedir, File.join(proj.sysconfdir, 'code'))
 

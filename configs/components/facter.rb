@@ -39,6 +39,10 @@ component "facter" do |pkg, settings, platform|
     pkg.environment "PATH", "#{settings[:bindir]}:$(PATH)"
   end
 
+  if platform.name =~ /ubuntu-18\.10/
+    pkg.environment "PATH", "/usr/lib/x86_64-linux-gnu:$(PATH)"
+  end
+
   # Explicitly skip jruby if not installing a jdk.
   skip_jruby = 'OFF'
   java_home = ''

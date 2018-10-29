@@ -33,7 +33,7 @@ component "facter-precompiled-gem" do |pkg, settings, platform|
   else
     make = 'make'
     rm = 'rm'
-    pkg.environment "PATH" => "#{settings[:build_tools_dir]}:#{settings[:ruby_dir]}:$$PATH"
+    pkg.environment "PATH" => "#{settings[:build_tools_dir]}:#{settings[:ruby_dir]}:/bin:$$PATH"
     pkg.environment('FACTER_CMAKE_OPTS', "-DLEATHERMAN_USE_CURL=FALSE -DWITHOUT_CURL=TRUE -DWITHOUT_OPENSSL=TRUE -DWITHOUT_BLKID=TRUE -DFACTER_SKIP_TESTS=TRUE -DWITHOUT_JRUBY=ON")
   end
 
