@@ -80,7 +80,9 @@ component "leatherman" do |pkg, settings, platform|
     # Ensure our gettext packages are found before system versions
     pkg.environment "PATH", "/opt/pl-build-tools/bin:$(PATH)"
   end
-
+  
+  pkg.environment "CXX", '/usr/bin/g++-6' if platform.name =~ /ubuntu-18\.10/
+  
   pkg.configure do
     ["#{cmake} \
         #{toolchain} \

@@ -40,6 +40,8 @@ component "libwhereami" do |pkg, settings, platform|
     end
   end
 
+  pkg.environment "CXX", '/usr/bin/g++-6' if platform.name =~ /ubuntu-18\.10/
+
   # Until we build our own gettext packages, disable using locales.
   # gettext 0.17 is required to compile .mo files with msgctxt.
   pkg.configure do

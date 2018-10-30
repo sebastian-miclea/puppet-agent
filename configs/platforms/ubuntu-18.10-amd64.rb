@@ -8,7 +8,7 @@ platform "ubuntu-18.10-amd64" do |plat|
   plat.provision_with "export DEBIAN_FRONTEND=noninteractive; apt-get update -qq; apt-get install -qy --no-install-recommends build-essential devscripts make quilt pkg-config debhelper rsync fakeroot cmake"
   plat.install_build_dependencies_with "DEBIAN_FRONTEND=noninteractive; apt-get install -qy --no-install-recommends "
 
-  plat.provision_with "export DEBIAN_FRONTEND=noninteractive; apt-get install -qy --no-install-recommends libncurses5 libboost-all-dev libyaml-cpp-dev libleatherman-dev"
+  plat.provision_with "export DEBIAN_FRONTEND=noninteractive; apt-get install -qy --no-install-recommends libncurses5 git libboost-all-dev libyaml-cpp-dev libleatherman-dev gcc-6 g++-6 g++-6-multilib"
 
   plat.vmpooler_template "ubuntu-1810-x86_64"
 end

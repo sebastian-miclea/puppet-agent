@@ -17,3 +17,5 @@ gem 'rake'
 gem 'json'
 gem 'octokit'
 gem 'rubocop', "~> 0.34.2"
+gem 'pry'
+gem 'pry-byebug'

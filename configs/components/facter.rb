@@ -158,6 +158,8 @@ component "facter" do |pkg, settings, platform|
                        -DFACTER_RUBY=#{settings[:libdir]}/$(shell #{ruby} -e 'print RbConfig::CONFIG[\"LIBRUBY_SO\"]')"
   end
 
+  pkg.environment "CXX", '/usr/bin/g++-6' if platform.name =~ /ubuntu-18\.10/
+
   # FACTER_RUBY Needs bindir
   pkg.configure do
     ["#{cmake} \

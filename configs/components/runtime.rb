@@ -24,15 +24,11 @@ component "runtime" do |pkg, settings, platform|
     pkg.build_requires "pl-pdcurses-#{platform.architecture}"
     # We only need zlib because curl is dynamically linking against zlib
     pkg.build_requires "pl-zlib-#{platform.architecture}"
-<<<<<<< HEAD
   elsif settings[:without_pl_build_tools]
     # These platforms use their default OS toolchain and have package
-    # dependencies configured in the platform provisioning step.
-=======
+    # dependencies configured in the platform provisioning step.  
   elsif platform.name =~ /ubuntu-18\.10/
     # We're installing GCC from the Ubuntu repos
-    pkg.build_requires 'gcc-8'
->>>>>>> Ubuntu 18.10
   else
     pkg.build_requires "pl-gcc"
   end
@@ -42,6 +38,8 @@ component "runtime" do |pkg, settings, platform|
     libdir = File.join("/opt/pl-build-tools", settings[:platform_triple], "lib64") if platform.architecture =~ /aarch64|s390x|ppc64/
   elsif platform.is_solaris? || platform.architecture =~ /i\d86/
     libdir = "/opt/pl-build-tools/lib"
+  elsif platform.name =~ /ubuntu-18\.10/
+    libdir = settings[:libdir]
   elsif platform.architecture =~ /64/
     libdir = "/opt/pl-build-tools/lib64"
   end
