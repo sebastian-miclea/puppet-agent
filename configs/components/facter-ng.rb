@@ -16,8 +16,13 @@ component "facter-ng" do |pkg, settings, platform|
     pkg.environment "RUBYLIB", "#{settings[:ruby_vendordir]}:$(RUBYLIB)"
   end
 
+  gemspec = 'facter-ng.gemspec'
+  unless platform.is_windows? || platform.is_aix? || platform.is_solaris?
+    gemspec = 'facter-ng-with-dep/facter-ng-with-dep.gemspec'
+  end
+
   pkg.build do
-    ["#{settings[:host_gem]} build facter-ng.gemspec"]
+    ["#{settings[:host_gem]} build #{gemspec}"]
   end
 
   if platform.is_windows?
